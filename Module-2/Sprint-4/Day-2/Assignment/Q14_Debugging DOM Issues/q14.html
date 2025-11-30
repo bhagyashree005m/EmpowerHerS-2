@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debugging Task</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <p id="message">Original Message</p>
+    <button id="textButton">Change Text</button>
+    <br /><br />
+    <div id="box"></div>
+    <button id="colorButton">Change Background</button>
+
+    <script>
+      // Fixed: Correct selector id from '#massage' to '#message'
+      const para = document.querySelector('#message');
+
+      // Fixed: Correct selection method from getElementByName to getElementById
+      const textButton = document.getElementById('textButton');
+
+      // Fixed: Correct event binding from addClickEventListener to addEventListener('click', ...)
+      textButton.addEventListener('click', () => {
+        // Fixed: Correct property from contentText to textContent
+        para.textContent = 'New Message';
+      });
+
+      // These were already correct
+      const box = document.getElementById('box');
+      const colorButton = document.getElementById('colorButton');
+
+      colorButton.addEventListener('click', () => {
+        // Fixed: Correct typo 'styl' to 'style'
+        box.style.backgroundColor = 'blue';
+      });
+    </script>
+  </body>
+</html>

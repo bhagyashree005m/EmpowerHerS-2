@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dynamic To-Do List with Event Handling</title>
+    <style>
+      body { font-family: system-ui, Arial, sans-serif; }
+      .controls { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+      input[type="text"] { padding: 0.45rem; flex: 1; }
+      button { padding: 0.45rem 0.75rem; }
+      ul { list-style: none; padding-left: 0; }
+      li { display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0; }
+      .task-text { flex: 1; }
+      .completed .task-text { text-decoration: line-through; color: #666; }
+      .action-btn { font-size: 0.9rem; }
+      .action-btn.complete { background: #e7f7e7; border: 1px solid #9bd19b; }
+      .action-btn.delete { background: #ffecec; border: 1px solid #ff9b9b; }
+    </style>
+  </head>
+  <body>
+    <div class="controls">
+      <input id="task-input" type="text" placeholder="Type a task..." aria-label="Task input" />
+      <button id="add-btn">Add Task</button>
+    </div>
+
+    <ul id="task-list" aria-live="polite"></ul>
+
+    <script>
+      const taskInput = document.querySelector('#task-input');
+      const addBtn = document.querySelector('#add-btn');
+      const taskList = document.querySelector('#task-list');
+
+      // Add task on button click
+      addBtn.addEventListener('click', addTask);
+
+      // Also add task on Enter key in the input
+      taskInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') addTask();
+      });
+
+      function addTask() {
+        const text = taskInput.value.trim();
+        if (!text) {
+          alert('Please enter a task.');
+          return;
+        }
+
+        const li = document.createElement('li');
+
+        const span = document.createElement('span');
+        span.className = 'task-text';
+        span.textContent = text;
+
+        const completeBtn = document.createElement('button');
+        completeBtn.className = 'action-btn complete';
+        completeBtn.type = 'button';
+        completeBtn.textContent = 'Complete';
+        completeBtn.setAttribute('aria-label', 'Mark task as complete');
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'action-btn delete';
+        deleteBtn.type = 'button';
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.setAttribute('aria-label', 'Delete task');
+
+        li.append(span, completeBtn, deleteBtn);
+        taskList.appendChild(li);
+
+        // Clear input and keep focus for fast entry
+        taskInput.value = '';
+        taskInput.focus();
+      }
+
+      // Event delegation: handle complete/delete from a single listener
+      taskList.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target.matches('.action-btn.complete')) {
+          const li = target.closest('li');
+          li.classList.toggle('completed');
+        } else if (target.matches('.action-btn.delete')) {
+          const li = target.closest('li');
+          li.remove();
+        }
+      });
+    </script>
+  </body>
+</html>

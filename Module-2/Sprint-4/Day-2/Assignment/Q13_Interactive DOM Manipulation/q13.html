@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>L1 - Interactive DOM Manipulation</title>
+    <style>
+      .controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr auto auto;
+        gap: 0.5rem;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+      input { padding: 0.45rem; }
+      button { padding: 0.45rem 0.75rem; }
+      #target {
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background: #f9f9f9;
+        min-height: 64px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="controls">
+      <input id="color-input" type="text" placeholder="Enter a color (e.g., blue, #ff5733, rgb(0,128,0))" />
+      <input id="text-input" type="text" placeholder="Enter text to display" />
+      <button id="bg-btn">Change Background</button>
+      <button id="text-btn">Update Text</button>
+    </div>
+
+    <div id="target">Initial content goes here.</div>
+
+    <script>
+      const colorInput = document.querySelector("#color-input");
+      const textInput = document.querySelector("#text-input");
+      const bgBtn = document.querySelector("#bg-btn");
+      const textBtn = document.querySelector("#text-btn");
+      const target = document.querySelector("#target");
+
+      function isValidCssColor(value) {
+        const v = value.trim();
+        if (!v) return false;
+        if (window.CSS && CSS.supports && CSS.supports("color", v)) return true;
+        const test = document.createElement("span");
+        test.style.color = "";
+        test.style.color = v;
+        return test.style.color !== "";
+      }
+
+      bgBtn.addEventListener("click", () => {
+        const color = colorInput.value.trim();
+        if (!isValidCssColor(color)) {
+          alert("Invalid color name!");
+          return;
+        }
+        target.style.backgroundColor = color;
+      });
+
+      textBtn.addEventListener("click", () => {
+        const text = textInput.value.trim();
+        if (!text) {
+          alert("Please enter some text!");
+          return;
+        }
+        target.textContent = text;
+      });
+    </script>
+  </body>
+</html>

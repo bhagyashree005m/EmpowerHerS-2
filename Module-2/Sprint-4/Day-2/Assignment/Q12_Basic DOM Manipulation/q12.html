@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Basic DOM Manipulation</title>
+    <style>
+      /* Optional: baseline styles for the initial items */
+      ul { list-style: disc; padding-left: 1.25rem; }
+      button { margin-top: 0.75rem; }
+    </style>
+  </head>
+  <body>
+    <ul id="item-list">
+      <li>Item 1</li>
+      <li>Item 2</li>
+      <li>Item 3</li>
+    </ul>
+
+    <button id="add-btn">Add Item</button>
+
+    <script>
+      const list = document.querySelector("#item-list");
+      const addBtn = document.querySelector("#add-btn");
+
+      addBtn.addEventListener("click", () => {
+        const li = document.createElement("li");
+        li.textContent = "New Item";
+
+        // Sequence number is the length after adding this new item
+        const sequenceNumber = list.children.length + 1;
+
+        if (sequenceNumber % 2 === 1) {
+          // Odd: bold + blue
+          li.style.fontWeight = "700";
+          li.style.color = "blue";
+        } else {
+          // Even: italic + red
+          li.style.fontStyle = "italic";
+          li.style.color = "red";
+        }
+
+        list.appendChild(li);
+      });
+    </script>
+  </body>
+</html>
