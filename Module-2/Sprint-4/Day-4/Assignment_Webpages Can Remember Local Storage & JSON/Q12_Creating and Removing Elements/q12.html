@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creating and Removing Elements</title>
+</head>
+<body>
+  <div id="container"></div>
+  <button onclick="addParagraph()">Add Paragraph</button>
+  <button onclick="removeParagraph()">Remove Last Paragraph</button>
+
+  <script>
+    function addParagraph() {
+      // create a new <p> element
+      let para = document.createElement("p");
+      para.textContent = "This is a new paragraph.";
+      
+      // append it to the container
+      document.getElementById("container").appendChild(para);
+    }
+
+    function removeParagraph() {
+      let container = document.getElementById("container");
+      // remove the last child if it exists
+      if (container.lastChild) {
+        container.removeChild(container.lastChild);
+      }
+    }
+  </script>
+</body>
+</html>
