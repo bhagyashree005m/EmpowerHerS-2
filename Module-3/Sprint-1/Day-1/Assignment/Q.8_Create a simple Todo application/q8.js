@@ -1,7 +1,7 @@
 // Fetch todos from API and store first 20 in Local Storage
 async function fetchTodos() {
   try {
-    const response = await fetch("https://jsonplaceholder.typicode.com/todos");
+    const response = await fetch("");
     const todos = await response.json();
     const first20 = todos.slice(0, 20);
     localStorage.setItem("todos", JSON.stringify(first20));
