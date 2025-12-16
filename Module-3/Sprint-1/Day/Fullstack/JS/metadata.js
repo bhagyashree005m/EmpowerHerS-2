@@ -1,0 +1,1 @@
+export const URL = "https://console.firebase.google.com/u/0/project/first-mini-full-stack-app/overview";
